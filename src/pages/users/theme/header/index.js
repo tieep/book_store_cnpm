@@ -1,5 +1,4 @@
 import banner_header from 'assets/AlphaBooks_Silver_Header_1263x60.webp';
-
 import logo from 'assets/fahasa-logo.webp';
 import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,31 +11,34 @@ import { FaChevronDown } from "react-icons/fa";
 
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(false);
-    const [hoveredCategory, setHoveredCategory] = useState(null);
+    const [hoveredCategory, setHoveredCategory] = useState('');;
     const timeoutRef = useRef(null);
+    const menuCategories = {
+        'Danh mục sản phẩm': ['Sản phẩm 1', 'Sản phẩm 2', 'Sản phẩm 3'],
+        'FOREIGN BOOKS': ['Book 1', 'Book 2', 'Book 3'],
+        'VPP - Dụng Cụ Học Sinh': ['Dụng cụ 1', 'Dụng cụ 2', 'Dụng cụ 3'],
+        'Đồ Chơi': ['Đồ chơi 1', 'Đồ chơi 2', 'Đồ chơi 3'],
+        'Làm Đẹp - Sức Khỏe': ['Sản phẩm làm đẹp 1', 'Sản phẩm làm đẹp 2'],
+        'Hành Trang Đến Trường': ['Hành trang 1', 'Hành trang 2']
+    };
+    
 
     const handleMouseEnterMenu = () => {
-        clearTimeout(timeoutRef.current); // Huỷ timeout nếu có
+        clearTimeout(timeoutRef.current);
         setShowDropdown(true);
+        setHoveredCategory(Object.keys(menuCategories)[0]);
     };
 
     const handleMouseLeaveMenu = () => {
         timeoutRef.current = setTimeout(() => {
             setShowDropdown(false);
-            setHoveredCategory(null); 
+            setHoveredCategory('');
         }, 700); 
     };
 
     const handleMouseEnterCategory = (category) => {
         clearTimeout(timeoutRef.current); 
-        setHoveredCategory(category);
-    };
-
-    const handleMouseLeaveCategory = () => {
-        timeoutRef.current = setTimeout(() => {
-            setHoveredCategory(null); 
-            setShowDropdown(false);
-        }, 700); 
+        setHoveredCategory(category); // Cập nhật danh mục được hover
     };
 
     return (
@@ -71,56 +73,24 @@ const Header = () => {
                         {showDropdown && (
                             <div className="dropdown-menu-custom">
                                 <ul>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category1')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        Danh mục sản phẩm
-                                    </li>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category2')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        FOREIGN BOOKS
-                                    </li>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category3')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        VPP - Dụng Cụ Học Sinh
-                                    </li>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category4')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        Đồ Chơi
-                                    </li>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category5')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        Làm Đẹp - Sức Khỏe
-                                    </li>
-                                    <li 
-                                        onMouseEnter={() => handleMouseEnterCategory('category6')} 
-                                        onMouseLeave={handleMouseLeaveCategory}
-                                    >
-                                        Hành Trang Đến Trường
-                                    </li>
+                                    {/* Tạo danh sách các danh mục từ từ điển */}
+                                    {Object.keys(menuCategories).map((menu, index) => (
+                                        <li 
+                                            key={index}
+                                            onMouseEnter={() => handleMouseEnterCategory(menu)}
+                                        >
+                                            {menu}
+                                        </li>
+                                    ))}
                                 </ul>
+                                {/* Hiển thị danh mục đang hover */}
                                 {hoveredCategory && (
-                <div 
-                    className="hovered-category"
-                    onMouseEnter={handleMouseEnterMenu} 
-                    onMouseLeave={handleMouseLeaveCategory} 
-                >
-                    {hoveredCategory}
-                </div>
-            )}
+                                    <div className="hovered-category">
+                                        {menuCategories[hoveredCategory]}
+                                    </div>
+                                )}
                             </div>
-                            
                         )}
-                        
                     </div>
 
                     {/* Search Box */}
@@ -152,12 +122,8 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-
-     
-            
         </header>
     );
 };
 
 export default Header;
-

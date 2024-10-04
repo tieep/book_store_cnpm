@@ -20,13 +20,13 @@
     
     .d-flex {
         display: flex;
-        align-items: center; /* Giúp các phần tử thẳng hàng với nhau */
-        flex-wrap: nowrap; /* Đảm bảo các phần tử không bị xuống dòng */
+        align-items: center; 
+        flex-wrap: nowrap;
     }
 
     .input-group {
         display: flex;
-        flex-wrap: nowrap; /* Đảm bảo input và button không bị xuống dòng */
+        flex-wrap: nowrap; 
         
         .form-control {
             border-radius: 4px 0 0 4px;
@@ -34,7 +34,7 @@
             background-color: #f5f5f5;
             border: none;
             margin-bottom: 15px;
-            flex-grow: 1; /* Để input chiếm không gian còn lại */
+            flex-grow: 1; 
         }
 
         .btn-warning {
@@ -52,8 +52,8 @@
         color: #ffffff;
         font-size: 1.2rem;
         margin-bottom: 0;
-        white-space: nowrap; /* Đảm bảo label không bị xuống dòng */
-        margin-right: 15px; /* Tạo khoảng cách giữa label và input */
+        white-space: nowrap; 
+        margin-right: 15px; 
     }
 
     .mr-2 {
